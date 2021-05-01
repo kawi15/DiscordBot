@@ -27,7 +27,7 @@ client.on("message", msg => {
 
 client.on("message", msg => {
   if (msg.content === "wtf") {
-    msg.reply("co cie zdziwiło?")
+    msg.reply("co cię zdziwiło?")
   }
 })
 
