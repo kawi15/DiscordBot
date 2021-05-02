@@ -32,17 +32,24 @@ client.on("message", msg => {
 })
 
 client.on("message", msg => {
-  if (msg.content === "czosnek out") {
+  if (msg.content.toLowerCase() === "czosnek out") {
     msg.channel.send({
       files: [
         "./binds/czosnek wypierdalaj.mp3"
       ]
     })
   }
-  else if (msg.content === "formix krzaki") {
+  else if (msg.content.toLowerCase() === "formix krzaki") {
     msg.channel.send({
       files: [
         "./binds/formix krzaki.mp3"
+      ]
+    })
+  }
+  else if (msg.content.toLowerCase() === "kawi noob") {
+    msg.channel.send({
+      files: [
+        "./binds/kawi noob.mp3"
       ]
     })
   }
