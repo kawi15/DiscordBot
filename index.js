@@ -31,4 +31,21 @@ client.on("message", msg => {
   }
 })
 
+client.on("message", msg => {
+  if (msg.content === "czosnek out") {
+    msg.channel.send({
+      files: [
+        "./binds/czosnek wypierdalaj.mp3"
+      ]
+    })
+  }
+  else if (msg.content === "formix krzaki") {
+    msg.channel.send({
+      files: [
+        "./binds/formix krzaki.mp3"
+      ]
+    })
+  }
+})
+
 client.login(mySecret);
