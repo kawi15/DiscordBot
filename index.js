@@ -6,6 +6,7 @@ const { prefix } = require('./config.json');
 const cron = require('node-cron');
 const cron1 = require('cron');
 const express = require('express');
+const fetch = require('node-fetch');
 
 /*app = express();
 
@@ -34,10 +35,10 @@ let scheduledMessage = new cron1.CronJob('18 18 * * *', () => {
 scheduledMessage.start();
 
 client.on("message", msg => {
-  if (msg.content === `ping` && !msg.author.bot) {
+  if (msg.content.toLowerCase() === `ping` && !msg.author.bot) {
     msg.channel.send("pong");
   }
-  else if (msg.content === "pong" && !msg.author.bot) {
+  else if (msg.content.toLowerCase() === "pong" && !msg.author.bot) {
     msg.channel.send("ping");
   }
   else if (msg.content === `${prefix}server`) {
@@ -48,6 +49,37 @@ client.on("message", msg => {
     msg.channel.send(`boop`);
   }
 })
+
+client.on('message', async message => {
+	if (message.content === `${prefix}cat`) {
+    const { file } = await fetch('https://aws.random.cat/meow').then(response => response.json());
+		message.channel.send(file);
+  }
+});
+
+
+
+client.on('message', async message => {
+	// ...
+	// Using the new `command` variable, this makes it easier to manage!
+	// You can switch your other commands to this format as well
+  const args = message.content.slice(prefix.length).trim().split(' ');
+  const command = args.shift().toLowerCase();
+	if (command === `wot`) {
+    
+		if (!args.length) {
+			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+		}
+    const url = `https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`
+    console.log(url)
+    await fetch(`https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`).then(response => response.json())
+    .then(function(data) {
+      message.channel.send(data.data)
+      console.log(data.data.account_id)
+    })
+		//message.channel.send(list);
+	}
+});
 
 
 
