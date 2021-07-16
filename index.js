@@ -177,7 +177,7 @@ client.on("message", async message => {
       });
 
       //xyro
-      client.users.fetch('525598025301622799', false).then((user) => {
+      client.users.fetch('617051760519020545', false).then((user) => {
         user.send('Cześć Xyro, ' + message.content + '\n' +  file);
       });
 
