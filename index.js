@@ -92,7 +92,7 @@ client.on("message", async message => {
       });
 
       //Coehoorn
-      client.users.fetch('271233421013942273', false).then((user) => {
+      client.users.fetch('476437095422885927', false).then((user) => {
         user.send('Cześć Coe, ' + message.content + '\n' +  file);
       });
 
