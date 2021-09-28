@@ -21,15 +21,30 @@ cron.schedule('* * * * *', function() {
 
 app.listen(3000);*/
 
+function dateDifference() {
+  let datePaczki = new Date("12/10/2021");
+  let timestamp = Date.now();
+  let today = new Date(timestamp);
+
+
+  let differenceInTime = datePaczki.getTime() - today.getTime();
+  let differenceInHours = differenceInTime / (1000 * 3600) + 10;
+  let differenceInDays = differenceInTime / (1000 * 3600 * 24) + 10;
+  let finalValue = differenceInDays | 0;
+
+  let str = `Do świątecznych paczek zostało ${finalValue} dni czyli ${differenceInHours | 0} godzin.`;
+  return str;
+}
+
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
-let scheduledMessage = new cron1.CronJob('18 18 * * *', () => {
+let scheduledMessage = new cron1.CronJob('00 08 * * *', () => {
   // This runs every day at 10:30:00, you can do anything you want
-  console.log("test")
-  let channel = client.channels.cache.get(`693855591570997348`);
-  //channel.send('test');
+  
+  let channel = client.channels.cache.get(`733401547245092990`);
+  channel.send(dateDifference());
 });
 
 scheduledMessage.start();
@@ -37,6 +52,7 @@ scheduledMessage.start();
 client.on("message", msg => {
   if (msg.content.toLowerCase() === `ping` && !msg.author.bot) {
     msg.channel.send("pong");
+    
   }
   else if (msg.content.toLowerCase() === "pong" && !msg.author.bot) {
     msg.channel.send("ping");
@@ -47,6 +63,9 @@ client.on("message", msg => {
   }
   else if (msg.content === `beep`) {
     msg.channel.send(`boop`);
+  }
+  else if (msg.content === `${prefix}paczki`) {
+    msg.channel.send(dateDifference());
   }
 })
 
