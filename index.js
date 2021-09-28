@@ -27,9 +27,9 @@ function dateDifference() {
   let today = new Date(timestamp);
 
 
-  let differenceInTime = datePaczki.getTime() - today.getTime();
-  let differenceInHours = differenceInTime / (1000 * 3600) + 10;
-  let differenceInDays = differenceInTime / (1000 * 3600 * 24) + 10;
+  let differenceInTime = datePaczki.getTime() - today.getTime() + (10 * 3600 * 1000);  // w nawiasie ręcznie dodane 10 godzin
+  let differenceInHours = differenceInTime / (1000 * 3600);
+  let differenceInDays = differenceInTime / (1000 * 3600 * 24);
   let finalValue = differenceInDays | 0;
 
   let str = `Do świątecznych paczek zostało ${finalValue} dni czyli ${differenceInHours | 0} godzin.`;
