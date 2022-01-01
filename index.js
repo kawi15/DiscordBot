@@ -8,6 +8,26 @@ const cron1 = require('cron');
 const express = require('express');
 const fetch = require('node-fetch');
 
+const nicks = {"kawi15": '502647545'};
+
+
+async function getMoe(id) {
+  let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${id}&fields=achievements`).then(response => response.json());
+  let moeCount = 0;
+  jsonData = json.data[id];
+  jsonData.forEach((arr) => {
+    if(arr['achievements']['marksOnGun'] != null) {
+      if(arr['achievements']['marksOnGun'] == 3) {
+        moeCount++;
+      }
+    }
+  })
+  //console.log(moeCount);
+  //return moeCount;
+}
+
+
+
 /*app = express();
 
 cron.schedule('* * * * *', function() {
@@ -22,7 +42,7 @@ cron.schedule('* * * * *', function() {
 app.listen(3000);*/
 
 function dateDifference() {
-  let datePaczki = new Date("12/09/2021");
+  let datePaczki = new Date("12/09/2022");
   let timestamp = Date.now();
   let today = new Date(timestamp);
 
@@ -48,7 +68,7 @@ let scheduledMessage = new cron1.CronJob('00 07 * * *', () => {
 });
 
 let christmasBoxesArrived = new cron1.CronJob('00 07 09 11 *', () => {
-  let channel = client.channels.cache.get(`616952647311818752`);
+  let channel = client.channels.cache.get(`910471078999126036`);
   channel.send("@everyone" + " " + "PACZKI PACZKI PACZKI PACZKI!!!!");
 })
 
@@ -57,8 +77,7 @@ christmasBoxesArrived.start();
 
 client.on("message", msg => {
   if (msg.content.toLowerCase() === `ping` && !msg.author.bot) {
-    msg.channel.send("pong");
-    
+    msg.channel.send(`pong`);
   }
   else if (msg.content.toLowerCase() === "pong" && !msg.author.bot) {
     msg.channel.send("ping");
@@ -239,13 +258,23 @@ client.on('message', async message => {
 			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 		}
     const url = `https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`
-    console.log(url)
     await fetch(`https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`).then(response => response.json())
-    .then(function(data) {
-      message.channel.send(data.data)
-      console.log(data.data.account_id)
+    .then(async function(data) {
+      //message.channel.send(data.data)
+      console.log(data.data[0]['account_id']);
+      let id = data.data[0]['account_id'];
+      let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${id}&fields=achievements`).then(response => response.json());
+      let moeCount = 0;
+      jsonData = json.data[id];
+      jsonData.forEach((arr) => {
+        if(arr['achievements']['marksOnGun'] != null) {
+          if(arr['achievements']['marksOnGun'] == 3) {
+            moeCount++;
+          }
+        }
+      })
+      message.channel.send(`Ilość wymarkowanych czołgów: ${moeCount}`);
     })
-		//message.channel.send(list);
 	}
 });
 
