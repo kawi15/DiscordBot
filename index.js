@@ -7,6 +7,7 @@ const cron = require('node-cron');
 const cron1 = require('cron');
 const express = require('express');
 const fetch = require('node-fetch');
+const { MessageEmbed } = require('discord.js');
 
 const nicks = {"kawi15": '502647545'};
 
@@ -258,7 +259,7 @@ client.on('message', async message => {
 			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 		}
     const url = `https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`
-    await fetch(`https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`).then(response => response.json())
+    await fetch(url).then(response => response.json())
     .then(async function(data) {
       //message.channel.send(data.data)
       console.log(data.data[0]['account_id']);
@@ -276,6 +277,87 @@ client.on('message', async message => {
       message.channel.send(`Ilość wymarkowanych czołgów: ${moeCount}`);
     })
 	}
+});
+
+client.on('message', async message => {
+  const nicks = new Map();
+  const rankingMoe = new Map();
+  const listToPrint = new Array();
+  
+  
+  nicks.set('kawi15', 502647545);
+  //nicks.set('razno', 501907348);
+  nicks.set('DarthBaneDaBanane', 502267360);
+  //nicks.set('Ex3l3nd', 502388571);
+  //nicks.set('_KSYWA_', 506054567);
+  //nicks.set('_HUZAR_', 500773367);
+  nicks.set('bajera1', 503369229);
+  nicks.set('STORM_MotywatorNegatywny', 502832598);
+  //nicks.set('Coehoorn1906', 522758872);
+  //nicks.set('Kochany_Coehoorn', 560712675);
+  nicks.set('papcio425', 523874249);
+  nicks.set('DzikiiCzosnekXD', 503763087);
+  nicks.set('Endevor19', 504600962);
+  nicks.set('EndriuWygrasz_hero', 549251680);
+  //nicks.set('FormixSGO', 552375171);
+  //nicks.set('Grzeslek', 509819903);
+  //nicks.set('inq_ognito', 530224665);
+  //nicks.set('kubat12345', 501430647);
+  //nicks.set('Mamoroth', 514013918);
+  //nicks.set('Ayama', 507227655);
+  //nicks.set('ayama_is_animal', 521379880);
+  //nicks.set('Seylak', 537765208);
+  nicks.set('thopson', 502621877);
+  //nicks.set('thopson_jr', 553444172);
+  //nicks.set('XYR0', 510276544);
+  nicks.set('gurolek_is_animal', 503269826);
+
+  if (message.content === `${prefix}ranking`) {
+    await nicks.forEach(async (value, key) => {
+      let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${value}&fields=achievements`).then(response => response.json());
+      let moeCount = 0;
+      let jsonData = json.data[value];
+      jsonData.forEach((arr) => {
+        if(arr['achievements']['marksOnGun'] == 3) {
+          moeCount++;
+        }
+      })
+      rankingMoe.set(key, moeCount);
+      if(key == 'gurolek_is_animal') {
+        const sortedRanking = new Map([...rankingMoe.entries()].sort((a, b) => b[1] - a[1]));
+        let i = 0;
+        sortedRanking.forEach((value, key) => {
+          listToPrint[i] = key;
+          i++
+          listToPrint[i] = value;
+          i++;
+        });
+        console.log(listToPrint);
+
+        // inside a command, event listener, etc.
+        const exampleEmbed = new MessageEmbed()
+	        .setColor('#0099ff')
+	        .setTitle('Ranking MoE')
+	        .addFields(
+		        { name: `1. ${listToPrint[0]}`, value: listToPrint[1]},
+		        { name: `2. ${listToPrint[2]}`, value: listToPrint[3]},
+            { name: `3. ${listToPrint[4]}`, value: listToPrint[5]},
+            { name: `4. ${listToPrint[6]}`, value: listToPrint[7]},
+            { name: `5. ${listToPrint[8]}`, value: listToPrint[9]},
+            { name: `6. ${listToPrint[10]}`, value: listToPrint[11]},
+            { name: `7. ${listToPrint[12]}`, value: listToPrint[13]},
+            { name: `8. ${listToPrint[14]}`, value: listToPrint[15]},
+            { name: `9. ${listToPrint[16]}`, value: listToPrint[17]},
+            { name: `10. ${listToPrint[18]}`, value: listToPrint[19]},
+          )
+	        .setTimestamp()
+	        .setFooter('Created by kawi15');
+
+          message.channel.send(exampleEmbed);
+      }
+    })
+  }
+  
 });
 
 
