@@ -9,16 +9,14 @@ const express = require('express');
 const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
 
-const nicks = {"kawi15": '502647545'};
-
 
 async function getMoe(id) {
   let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${id}&fields=achievements`).then(response => response.json());
   let moeCount = 0;
   jsonData = json.data[id];
   jsonData.forEach((arr) => {
-    if(arr['achievements']['marksOnGun'] != null) {
-      if(arr['achievements']['marksOnGun'] == 3) {
+    if (arr['achievements']['marksOnGun'] != null) {
+      if (arr['achievements']['marksOnGun'] == 3) {
         moeCount++;
       }
     }
@@ -63,7 +61,7 @@ client.on("ready", () => {
 
 let scheduledMessage = new cron1.CronJob('00 07 * * *', () => {
   // This runs every day at 10:30:00, you can do anything you want
-  
+
   let channel = client.channels.cache.get(`733401547245092990`);
   channel.send(dateDifference());
 });
@@ -85,7 +83,7 @@ client.on("message", msg => {
   }
   else if (msg.content === `${prefix}server`) {
     msg.channel.send
-    (`Server name: ${msg.guild.name}\nTotal members: ${msg.guild.memberCount}`);
+      (`Server name: ${msg.guild.name}\nTotal members: ${msg.guild.memberCount}`);
   }
   else if (msg.content === `beep`) {
     msg.channel.send(`boop`);
@@ -99,7 +97,7 @@ client.on("message", msg => {
 // WYSYLANIE PRYWATNYCH WIADOMOSCI
 client.on("message", async message => {
   if (message.author.bot) return;
-  if (message.channel.id === '623476836118036481'){
+  if (message.channel.id === '623476836118036481') {
     /*let mentionDM = message.mentions.users.first();
     console.log(mentionDM)
     let chan = message.guild.channels.cache.find(c => c.id === '733401547245092990')
@@ -118,142 +116,173 @@ client.on("message", async message => {
     if (true) {
       //kawi
       client.users.fetch('367206386104401920', false).then((user) => {
-        user.send('Cześć kawi, ' + message.content + '\n' +  file);
+        user.send('Cześć kawi, ' + message.content + '\n' + file);
       });
 
       //razno
       client.users.fetch('382921418452500481', false).then((user) => {
-        user.send('Cześć razno, ' + message.content + '\n' +  file);
+        user.send('Cześć razno, ' + message.content + '\n' + file);
       });
 
       //Adrian
       client.users.fetch('820278073059442728', false).then((user) => {
-        user.send('Cześć Adi, ' + message.content + '\n' +  file);
+        user.send('Cześć Adi, ' + message.content + '\n' + file);
       });
 
       //Huzar
       client.users.fetch('631930373139333150', false).then((user) => {
-        user.send('Cześć Huzar, ' + message.content + '\n' +  file);
+        user.send('Cześć Huzar, ' + message.content + '\n' + file);
       });
 
       //Bajera
       client.users.fetch('271233421013942273', false).then((user) => {
-        user.send('Cześć Coe, ' + message.content + '\n' +  file);
+        user.send('Cześć Coe, ' + message.content + '\n' + file);
       });
 
       //Coehoorn
       client.users.fetch('476437095422885927', false).then((user) => {
-        user.send('Cześć Coe, ' + message.content + '\n' +  file);
+        user.send('Cześć Coe, ' + message.content + '\n' + file);
       });
 
       //Banan
       client.users.fetch('646120622438744095', false).then((user) => {
-        user.send('Cześć Banan, ' + message.content + '\n' +  file);
+        user.send('Cześć Banan, ' + message.content + '\n' + file);
       });
 
       //Exelend
       client.users.fetch('127069888165576704', false).then((user) => {
-        user.send('Cześć Exel, ' + message.content + '\n' +  file);
+        user.send('Cześć Exel, ' + message.content + '\n' + file);
       });
 
       //Cebul
       client.users.fetch('616954961535827988', false).then((user) => {
-        user.send('Cześć Cebul, ' + message.content + '\n' +  file);
+        user.send('Cześć Cebul, ' + message.content + '\n' + file);
       });
 
       //Endevor
       client.users.fetch('494913521855758337', false).then((user) => {
-        user.send('Cześć Endevor, ' + message.content + '\n' +  file);
+        user.send('Cześć Endevor, ' + message.content + '\n' + file);
       });
 
       //Endriu
       client.users.fetch('347741569937309706', false).then((user) => {
-        user.send('Cześć Endriu, ' + message.content + '\n' +  file);
+        user.send('Cześć Endriu, ' + message.content + '\n' + file);
       });
 
       //Formix
       client.users.fetch('427449599184207873', false).then((user) => {
-        user.send('Cześć Formix, ' + message.content + '\n' +  file);
+        user.send('Cześć Formix, ' + message.content + '\n' + file);
       });
 
       //Grzesiek
       client.users.fetch('617053428102987815', false).then((user) => {
-        user.send('Cześć Grzesiek, ' + message.content + '\n' +  file);
+        user.send('Cześć Grzesiek, ' + message.content + '\n' + file);
       });
 
       //gurolek
       client.users.fetch('421994920874868737', false).then((user) => {
-        user.send('Cześć Gurolek, ' + message.content + '\n' +  file);
+        user.send('Cześć Gurolek, ' + message.content + '\n' + file);
       });
 
       //kubat
       client.users.fetch('512720691083345951', false).then((user) => {
-        user.send('Cześć Kubat, ' + message.content + '\n' +  file);
+        user.send('Cześć Kubat, ' + message.content + '\n' + file);
       });
 
       //ksywa
       client.users.fetch('495265854473109534', false).then((user) => {
-        user.send('Cześć Ksywa, ' + message.content + '\n' +  file);
+        user.send('Cześć Ksywa, ' + message.content + '\n' + file);
       });
 
       //mamrot
       client.users.fetch('616961405958225950', false).then((user) => {
-        user.send('Cześć Mamrocik, ' + message.content + '\n' +  file);
+        user.send('Cześć Mamrocik, ' + message.content + '\n' + file);
       });
 
       //papcio
       client.users.fetch('248865828739481602', false).then((user) => {
-        user.send('Cześć Papcio, ' + message.content + '\n' +  file);
+        user.send('Cześć Papcio, ' + message.content + '\n' + file);
       });
 
       //ayama
       client.users.fetch('525598025301622799', false).then((user) => {
-        user.send('Cześć Ayama, ' + message.content + '\n' +  file);
+        user.send('Cześć Ayama, ' + message.content + '\n' + file);
       });
 
       //seylak
       client.users.fetch('501122613687353344', false).then((user) => {
-        user.send('Cześć Seylak, ' + message.content + '\n' +  file);
+        user.send('Cześć Seylak, ' + message.content + '\n' + file);
       });
 
       //snopek
       client.users.fetch('622131194967883797', false).then((user) => {
-        user.send('Cześć Snopek, ' + message.content + '\n' +  file);
+        user.send('Cześć Snopek, ' + message.content + '\n' + file);
       });
 
       //thopson
       client.users.fetch('617052091785019452', false).then((user) => {
-        user.send('Cześć Tomek, ' + message.content + '\n' +  file);
+        user.send('Cześć Tomek, ' + message.content + '\n' + file);
       });
 
       //xyro
       client.users.fetch('617051760519020545', false).then((user) => {
-        user.send('Cześć Xyro, ' + message.content + '\n' +  file);
+        user.send('Cześć Xyro, ' + message.content + '\n' + file);
       });
 
       console.log('Message Sent!');
     }
-    
+
   }
 })
 
 // LOSOWE OBRAZKI KOTOW
 client.on('message', async message => {
-	if (message.content === `${prefix}cat`) {
+  if (message.content === `${prefix}cat`) {
     const { file } = await fetch('https://aws.random.cat/meow').then(response => response.json());
-		message.channel.send(file);
+    message.channel.send(file);
   }
 });
 
 
-// NIEDOKONCZONA WOT FUNKCJONALNOSC
 client.on('message', async message => {
+  // ...
+  // Using the new `command` variable, this makes it easier to manage!
+  // You can switch your other commands to this format as well
+  const args = message.content.slice(prefix.length).trim().split(' ');
+  const command = args.shift().toLowerCase();
+  if (command === `wot`) {
+
+    if (!args.length) {
+      return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+    }
+    const url = `https://api.worldoftanks.eu/wot/account/list/?application_id=7c9ab215a486926e9669cd51d20425dd&search=${args[0]}`
+    await fetch(url).then(response => response.json())
+      .then(async function(data) {
+        //message.channel.send(data.data)
+        console.log(data.data[0]['account_id']);
+        let id = data.data[0]['account_id'];
+        let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${id}&fields=achievements`).then(response => response.json());
+        let moeCount = 0;
+        jsonData = json.data[id];
+        jsonData.forEach((arr) => {
+          if (arr['achievements']['marksOnGun'] != null) {
+            if (arr['achievements']['marksOnGun'] == 3) {
+              moeCount++;
+            }
+          }
+        })
+        message.channel.send(`Ilość wymarkowanych czołgów: ${moeCount}`);
+      })
+  }
+});
+
+/*client.on('message', async message => {
 	// ...
 	// Using the new `command` variable, this makes it easier to manage!
 	// You can switch your other commands to this format as well
   const args = message.content.slice(prefix.length).trim().split(' ');
   const command = args.shift().toLowerCase();
-	if (command === `wot`) {
+	if (command === `tier`) {
     
 		if (!args.length) {
 			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
@@ -264,27 +293,73 @@ client.on('message', async message => {
       //message.channel.send(data.data)
       console.log(data.data[0]['account_id']);
       let id = data.data[0]['account_id'];
-      let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${id}&fields=achievements`).then(response => response.json());
-      let moeCount = 0;
+      let json = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${id}&fields=achievements%2C+tank_id`).then(response => response.json());
+      let five = 0;
+      let six = 0;
+      let seven = 0;
+      let eight = 0;
+      let nine = 0;
+      let ten = 0;
+      let tier;
       jsonData = json.data[id];
-      jsonData.forEach((arr) => {
+      jsonData.forEach(async (arr) => {
         if(arr['achievements']['marksOnGun'] != null) {
           if(arr['achievements']['marksOnGun'] == 3) {
-            moeCount++;
+            let tankId = arr['tank_id'];
+            let jsonTank = await fetch(`https://api.worldoftanks.eu/wot/encyclopedia/vehicles/?application_id=7c9ab215a486926e9669cd51d20425dd&tank_id=${tankId}&fields=tier`).then(response => response.json());
+            console.log(jsonTank);
+            tier = jsonTank['data'][tankId]['tier'];
+            console.log(`test ${tier}`)
+            if(tier == 5) five++;
+            else if(tier == 6) six++;
+            else if(tier == 7) seven++;
+            else if(tier == 8) eight++;
+            else if(tier == 9) nine++;
+            else if(tier == 10) ten++;
           }
         }
       })
-      message.channel.send(`Ilość wymarkowanych czołgów: ${moeCount}`);
+      setTimeout(() => message.channel.send(`5: ${five}\n6: ${six}\n7: ${seven}\n8: ${eight}\n9: ${nine}\n10: ${ten}\n`), 5000);
     })
 	}
+});*/
+
+client.on('message', async message => {
+  const kawi = 502647545;
+  const gurolek = 503269826;
+  if (message.content === `${prefix}diff`) {
+    let gurolekJson = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${gurolek}&fields=achievements`).then(response => response.json());
+    let gurolekCount = 0;
+    jsonData = gurolekJson.data[gurolek];
+    jsonData.forEach((arr) => {
+      if (arr['achievements']['marksOnGun'] != null) {
+        if (arr['achievements']['marksOnGun'] == 3) {
+          gurolekCount++;
+        }
+      }
+    })
+
+    let kawiJson = await fetch(`https://api.worldoftanks.eu/wot/tanks/achievements/?application_id=7c9ab215a486926e9669cd51d20425dd&account_id=${kawi}&fields=achievements`).then(response => response.json());
+    let kawiCount = 0;
+    kawiJsonData = kawiJson.data[kawi];
+    kawiJsonData.forEach((arr) => {
+      if (arr['achievements']['marksOnGun'] != null) {
+        if (arr['achievements']['marksOnGun'] == 3) {
+          kawiCount++;
+        }
+      }
+    })
+
+    message.channel.send(`Ilość wymarkowanych czołgów:\n gurolek: ${gurolekCount}\n kawi15: ${kawiCount}\n------------------\n Rożnica: ${gurolekCount - kawiCount}`);
+  }
 });
 
 client.on('message', async message => {
   const nicks = new Map();
   const rankingMoe = new Map();
   const listToPrint = new Array();
-  
-  
+
+
   nicks.set('kawi15', 502647545);
   //nicks.set('razno', 501907348);
   nicks.set('DarthBaneDaBanane', 502267360);
@@ -295,7 +370,7 @@ client.on('message', async message => {
   nicks.set('STORM_MotywatorNegatywny', 502832598);
   //nicks.set('Coehoorn1906', 522758872);
   //nicks.set('Kochany_Coehoorn', 560712675);
-  nicks.set('papcio425', 523874249);
+  nicks.set('abrams1234', 518119298);
   nicks.set('DzikiiCzosnekXD', 503763087);
   nicks.set('Endevor19', 504600962);
   nicks.set('EndriuWygrasz_hero', 549251680);
@@ -318,12 +393,12 @@ client.on('message', async message => {
       let moeCount = 0;
       let jsonData = json.data[value];
       jsonData.forEach((arr) => {
-        if(arr['achievements']['marksOnGun'] == 3) {
+        if (arr['achievements']['marksOnGun'] == 3) {
           moeCount++;
         }
       })
       rankingMoe.set(key, moeCount);
-      if(key == 'gurolek_is_animal') {
+      if (key == 'gurolek_is_animal') {
         const sortedRanking = new Map([...rankingMoe.entries()].sort((a, b) => b[1] - a[1]));
         let i = 0;
         sortedRanking.forEach((value, key) => {
@@ -336,28 +411,28 @@ client.on('message', async message => {
 
         // inside a command, event listener, etc.
         const exampleEmbed = new MessageEmbed()
-	        .setColor('#0099ff')
-	        .setTitle('Ranking MoE')
-	        .addFields(
-		        { name: `1. ${listToPrint[0]}`, value: listToPrint[1]},
-		        { name: `2. ${listToPrint[2]}`, value: listToPrint[3]},
-            { name: `3. ${listToPrint[4]}`, value: listToPrint[5]},
-            { name: `4. ${listToPrint[6]}`, value: listToPrint[7]},
-            { name: `5. ${listToPrint[8]}`, value: listToPrint[9]},
-            { name: `6. ${listToPrint[10]}`, value: listToPrint[11]},
-            { name: `7. ${listToPrint[12]}`, value: listToPrint[13]},
-            { name: `8. ${listToPrint[14]}`, value: listToPrint[15]},
-            { name: `9. ${listToPrint[16]}`, value: listToPrint[17]},
-            { name: `10. ${listToPrint[18]}`, value: listToPrint[19]},
+          .setColor('#0099ff')
+          .setTitle('Ranking MoE')
+          .addFields(
+            { name: `1. ${listToPrint[0]}`, value: listToPrint[1] },
+            { name: `2. ${listToPrint[2]}`, value: listToPrint[3] },
+            { name: `3. ${listToPrint[4]}`, value: listToPrint[5] },
+            { name: `4. ${listToPrint[6]}`, value: listToPrint[7] },
+            { name: `5. ${listToPrint[8]}`, value: listToPrint[9] },
+            { name: `6. ${listToPrint[10]}`, value: listToPrint[11] },
+            { name: `7. ${listToPrint[12]}`, value: listToPrint[13] },
+            { name: `8. ${listToPrint[14]}`, value: listToPrint[15] },
+            { name: `9. ${listToPrint[16]}`, value: listToPrint[17] },
+            { name: `10. ${listToPrint[18]}`, value: listToPrint[19] },
           )
-	        .setTimestamp()
-	        .setFooter('Created by kawi15');
+          .setTimestamp()
+          .setFooter('Created by kawi15');
 
-          message.channel.send(exampleEmbed);
+        message.channel.send(exampleEmbed);
       }
     })
   }
-  
+
 });
 
 
